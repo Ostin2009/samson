@@ -19,6 +19,6 @@ Route::view('/', 'welcome');
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/discount', [DiscountController::class, 'index'])->name('discount');
 
-    Route::post('/discount', [DiscountController::class, 'create']);
-    Route::get('/discount', [DiscountController::class, 'check']);
+    Route::get('/discount/create', [DiscountController::class, 'create']);
+    Route::get('/discount/check/{code}', [DiscountController::class, 'check']);
 });

@@ -40,7 +40,7 @@ class DiscountController extends Controller
         $user = auth()->user();
         $answer = 'Скидка недоступна';
 
-        $discount = DB::table('discount')
+        $discount = DB::table('discounts')
             ->where('code', '=', $code)
             ->where('user_id', '=', $user->id)
             ->where('created_at', '<', date('Y-m-d H:i:s', time() - 60 * 60 * 3))
@@ -50,6 +50,6 @@ class DiscountController extends Controller
             $answer = sprintf("Размер вашей скидки: %d процентов", $discount->value);
         }
 
-        return view('discount', ['discountValue' => $answer]);
+        return view('discount', ['answer' => $answer]);
     }
 }
