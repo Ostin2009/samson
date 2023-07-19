@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use app\Http\controllers\DiscountController;
+use App\Http\Controllers\DiscountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +14,11 @@ use app\Http\controllers\DiscountController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
 
-Route::get('/', DiscountController::class);
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('/discount', [DiscountController::class, 'index'])->name('discount');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::post('/discount', [DiscountController::class, 'create']);
+    Route::get('/discount', [DiscountController::class, 'check']);
 });
