@@ -32,7 +32,9 @@ class DiscountController extends Controller
             $discount->save();
         }
 
-        return view('discount', ['discount' => $discount]);
+        $message = sprintf("Ваш код для получения скидки %d %s: %s", $discount->value, '%', $discount->code);
+
+        return view('discount', compact('message'));
     }
 
     public function check($code)
@@ -47,9 +49,9 @@ class DiscountController extends Controller
             ->first();
 
         if (!empty($discount)) {
-            $answer = sprintf("Размер вашей скидки: %d процентов", $discount->value);
+            $answer = sprintf("Размер вашей скидки: %d%s", $discount->value, '%');
         }
 
-        return view('discount', ['answer' => $answer]);
+        return view('discount', compact('answer'));
     }
 }
