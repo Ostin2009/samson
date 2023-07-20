@@ -1,25 +1,31 @@
 
-<html>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Скидка</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
         <h1>Привет</h1>
 
         <a href="{{ url('/discount/create') }}" class="btn btn-xs btn-info pull-right">Получить ссылку</a>
 
-        @if($message)
+        @if($message ?? false)
             <h1>{{ $message }}</h1>
         @endif
 
-        <form method="get" action="/discount/check" }}>
-            @csrf
+        <form method="get" action="/discount/check")>
             <input type="text" id="code" name="code" class="form-control">
 
-            <button type="submit">Проверить скидку</button>
+            <button type="submit" class="btn btn-xs btn-info pull-right">Проверить скидку</button>
         </form>
 
-        // alternative: https://stackoverflow.com/questions/27298426/how-to-pass-get-parameters-to-laravel-from-with-get-method
-
-        @if($answer)
-            <h1>{{ $answer }}</h1>
+        @if($answer ?? false)
+            <h1>{{ $answer}}</h1>
         @endif
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
     </body>
 </html>

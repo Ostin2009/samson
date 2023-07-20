@@ -20,6 +20,8 @@ class DiscountController extends Controller
 
         if (!empty($discount) && $discount->created_at < date('Y-m-d H:i:s', time() - 60 * 60)) {
             $discount->delete();
+
+            $discount = null;
         }
 
         if (empty($discount)) {
@@ -32,20 +34,21 @@ class DiscountController extends Controller
             $discount->save();
         }
 
-        $message = sprintf("Ваш код для получения скидки %d %s: %s", $discount->value, '%', $discount->code);
+        $message = sprintf("Ваш код для получения скидки %d%s: %s", $discount->value, '%', $discount->code);
 
         return view('discount', compact('message'));
     }
 
-    public function check($code)
+    public function check(Request $request)
     {
+        $code = $request->input('code');
         $user = auth()->user();
         $answer = 'Скидка недоступна';
 
         $discount = DB::table('discounts')
             ->where('code', '=', $code)
             ->where('user_id', '=', $user->id)
-            ->where('created_at', '<', date('Y-m-d H:i:s', time() - 60 * 60 * 3))
+            ->where('created_at', '>', date('Y-m-d H:i:s', time() - 60 * 60 * 3))
             ->first();
 
         if (!empty($discount)) {
