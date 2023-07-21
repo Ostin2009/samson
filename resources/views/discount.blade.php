@@ -17,6 +17,7 @@
         @endif
 
         <form method="get" action="/discount/check")>
+            <label for="code">Введите код:</label>
             <input type="text" id="code" name="code" class="form-control">
 
             <button type="submit" class="btn btn-xs btn-info pull-right">Проверить скидку</button>
